@@ -22,7 +22,10 @@ module.exports = {
       '<components>': path.resolve(__dirname, '../src/components'),
       '<hooks>': path.resolve(__dirname, '../src/hooks'),
       '<helpers>': path.resolve(__dirname, '../src/helpers'),
-      '<styles>': path.resolve(__dirname, '../src/styles')
+      '<styles>': path.resolve(__dirname, '../src/styles'),
+      '<assests>': path.resolve(__dirname, '../src/assests'),
+      '<configs>': path.resolve(__dirname, '../src/configs'),
+      '<mocks>': path.resolve(__dirname, '../src/__mocks__')
     }
   },
   plugins: [
