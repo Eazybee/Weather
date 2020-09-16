@@ -72,7 +72,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Eazybee/Modify.git"
+    "url": "git+https://github.com/Eazybee/Weather.git"
   },
   "keywords": [
     "react",
@@ -81,8 +81,8 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Eazybee/Modify/issues"
+    "url": "https://github.com/Eazybee/Weather/issues"
   },
-  "homepage": "https://github.com/Eazybee/Modify#readme",
+  "homepage": "https://github.com/Eazybee/Weather#readme",
   "author": "Ezekiel Ilori"
 }

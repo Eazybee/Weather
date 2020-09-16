@@ -1,11 +1,10 @@
 const config = {
-  roots: ['.', './test'],
+  roots: ['.'],
   verbose: true,
   transform: {
     '^.+\\.[jt]sx?$': 'ts-jest'
   },
   moduleNameMapper: {
-    '\\.(css)$': '<rootDir>/test/config/assetTransformer.js',
     '^<src>/(.*)$': '<rootDir>/src/$1',
     '^<pages>/(.*)$': '<rootDir>/src/components/pages/$1',
     '^<components>/(.*)$': '<rootDir>/src/components/$1',

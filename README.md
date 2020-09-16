@@ -1,4 +1,4 @@
-# Modify
-[![Modify](https://circleci.com/gh/Eazybee/Modify.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
-[![Maintainability](https://api.codeclimate.com/v1/badges/aba7364fb9ffbf9bb7cb/maintainability)](https://codeclimate.com/github/Eazybee/Modify/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/aba7364fb9ffbf9bb7cb/test_coverage)](https://codeclimate.com/github/Eazybee/Modify/test_coverage)
+# Weather
+[![Weather](https://circleci.com/gh/Eazybee/Weather.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+[![Maintainability](https://api.codeclimate.com/v1/badges/391f1d82943b515d52dd/maintainability)](https://codeclimate.com/github/Eazybee/Weather/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/391f1d82943b515d52dd/test_coverage)](https://codeclimate.com/github/Eazybee/Weather/test_coverage)

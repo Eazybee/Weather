@@ -29,11 +29,10 @@
   },
   "experimentalDecorators": true,
   "include": [
-    "src"
+    "src", "src/custom.d.ts"
   ],
   "exclude": [
-    "node_modules",
-    "test"
+    "node_modules"
   ],
   "awesomeTypescriptLoaderOptions": {
     "baseUrl": ".",

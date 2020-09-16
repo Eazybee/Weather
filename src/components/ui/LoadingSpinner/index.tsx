@@ -63,7 +63,6 @@ LoadingSpinner.Styled = styled.div`
   `}
 `;
 
-
 type Props = {
   height?: number;
   positionTop?: number;
