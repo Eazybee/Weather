@@ -22,9 +22,9 @@ LoadingSpinner.Styled = styled.div`
     text-align: center;
     vertical-align: middle;
     margin: auto;
-      height: ${height}px;
-      top: ${positionTop};
-      position: ${positionTop ? 'relative' : 'static'};
+    height: ${height}px;
+    top: ${positionTop};
+    position: ${positionTop ? 'relative' : 'static'};
 
 
     div {
@@ -74,7 +74,7 @@ type Props = {
 LoadingSpinner.defaultProps = {
   height: 100,
   positionTop: 0,
-  text: 'Loading',
+  text: 'Loading...',
   styles: css``,
   textStyle: {},
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isDevelopment } from '<helpers>/constants';
+import { IsDevelopment } from '<configs>/constants';
 
 
 const FallBack = styled.div`
@@ -39,7 +39,7 @@ class ErrorBoundary extends React.Component<Record<string, any>, { hasError: boo
     const { hasError } = this.state;
     const { children } = this.props;
 
-    if (!isDevelopment && hasError) {
+    if (!IsDevelopment && hasError) {
       return (
         <FallBack>
           <p>Oops!, Somthing just broke from our side</p>

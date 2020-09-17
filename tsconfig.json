@@ -11,7 +11,10 @@
       "<components>/*": ["./src/components/*"],
       "<hooks>/*": ["./src/hooks/*"],
       "<helpers>/*": ["./src/helpers/*"],
-      "<styles>/*": ["./src/styles/*"]
+      "<styles>/*": ["./src/styles/*"],
+      "<assests>/*": ["./src/assests/*"],
+      "<configs>/*": ["./src/configs/*"],
+      "<mocks>/*": ["./src/__mocks__/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
