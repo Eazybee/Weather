@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
-
 const Degree: FC<Props> & {
-  Styled: StyledComponent<'p', any, {}, never>
+  Styled: StyledComponent<'p', any, {}, never>;
 } = ({ children, ...rest }: Props) => (
   <Degree.Styled {...rest}>
     {children}
@@ -25,7 +24,6 @@ Degree.Styled = styled.p`
   }
 `;
 
-
 Degree.defaultProps = {
   size: '1rem',
   bottom: '0.29rem',
@@ -33,7 +31,7 @@ Degree.defaultProps = {
 };
 
 type Props = {
-  children: string;
+  children: string | number;
   size?: string;
   bottom?: string;
   cSize?: string;

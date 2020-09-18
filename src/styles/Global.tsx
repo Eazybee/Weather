@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   text-decoration: none;
   list-style:none;
   color: #000000;
-  outline-color: #e2ff8b;
+  outline-color: #00ffff;
   outline-width: 1rem;
 }
 
@@ -39,6 +39,21 @@ body {
 @keyframes fadeInImg {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    position: relative;
+    top: 1.8rem;
+    /* transform: scale(0); */
+    transition: 1s linear;
+  }
+  to {
+    top: 0;
+    /* transform: scale(1); */
+    opacity: 1;
+  }
 }
 `;
 

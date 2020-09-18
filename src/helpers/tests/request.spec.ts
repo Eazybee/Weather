@@ -4,7 +4,6 @@ import request from '<helpers>/request';
 import api from '<configs>/api';
 import getApiResponse from '<mocks>/index';
 
-
 jest.mock('<configs>/api', () => ({
   get: jest.fn(() => Promise.resolve({
     data: getApiResponse(),
@@ -27,7 +26,6 @@ describe('Request', () => {
       request('get', {}),
     ]);
 
-
     expect(response1.status).toEqual('rejected');
     expect(response2.status).toEqual('rejected');
     expect(response3.status).toEqual('rejected');
@@ -43,7 +41,6 @@ describe('Request', () => {
     }));
 
     const response = await request('get', {});
-
 
     expect(response.error).toEqual('server error');
   });

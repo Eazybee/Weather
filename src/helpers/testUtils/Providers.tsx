@@ -7,9 +7,7 @@ const Providers = ({ children }: { children: JSX.Element }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <>
-        {children}
-      </>
+      <>{children}</>
     </ThemeProvider>
   );
 };

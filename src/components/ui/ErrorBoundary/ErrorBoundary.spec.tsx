@@ -3,7 +3,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { render } from '<helpers>/testUtils/testUtils';
 import ErrorBoundary from '.';
 
-
 describe('Loading Spinner', () => {
   beforeEach(() => {
     // when the error's thrown a bunch of console.errors are called even though
@@ -22,9 +21,11 @@ describe('Loading Spinner', () => {
   it('should render component', async () => {
     const NotFaultyComponent = () => <p>I am healthy</p>;
 
-    const {
-      container, getByText, queryByText,
-    } = render(<ErrorBoundary><NotFaultyComponent /></ErrorBoundary>);
+    const { container, getByText, queryByText } = render(
+      <ErrorBoundary>
+        <NotFaultyComponent />
+      </ErrorBoundary>,
+    );
 
     expect(getByText('I am healthy')).toBeTruthy();
     expect(queryByText('Oops Somthing just broke from our side')).toBeFalsy();
@@ -40,11 +41,15 @@ describe('Loading Spinner', () => {
       </p>
     );
 
-    const {
-      container, getByText, queryByText,
-    } = render(<ErrorBoundary><FaultyComponent /></ErrorBoundary>);
+    const { container, getByText, queryByText } = render(
+      <ErrorBoundary>
+        <FaultyComponent />
+      </ErrorBoundary>,
+    );
     expect(queryByText('I am healthy')).toBeFalsy();
     expect(getByText('Oops!, Somthing just broke from our side')).toBeTruthy();
-    expect(container.firstChild?.firstChild).toContainHTML('<p>Oops!, Somthing just broke from our side</p>');
+    expect(container.firstChild?.firstChild).toContainHTML(
+      '<p>Oops!, Somthing just broke from our side</p>',
+    );
   });
 });

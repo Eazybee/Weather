@@ -12,9 +12,7 @@ const getApiResponse = () => ({
       weather_icons: [
         'https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png',
       ],
-      weather_descriptions: [
-        'Sunny',
-      ],
+      weather_descriptions: ['Sunny'],
       wind_speed: 0,
       wind_degree: 349,
       wind_dir: 'N',
@@ -30,3 +28,4 @@ const getApiResponse = () => ({
 });
 
 export default getApiResponse;
+export { default as mocks } from './cities'

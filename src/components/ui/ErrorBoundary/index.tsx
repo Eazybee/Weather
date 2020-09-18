@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { IsDevelopment } from '<configs>/constants';
 
-
 const FallBack = styled.div`
   width: 100%;
   height: 100%;
@@ -18,7 +17,6 @@ const FallBack = styled.div`
   }
 `;
 
-
 class ErrorBoundary extends React.Component<Record<string, any>, { hasError: boolean }> {
   constructor(props: Record<string, any>) {
     super(props);
@@ -33,7 +31,6 @@ class ErrorBoundary extends React.Component<Record<string, any>, { hasError: boo
   static getDerivedStateFromError() {
     return { hasError: true };
   }
-
 
   render() {
     const { hasError } = this.state;
@@ -52,4 +49,3 @@ class ErrorBoundary extends React.Component<Record<string, any>, { hasError: boo
 }
 
 export default ErrorBoundary;
-
