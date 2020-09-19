@@ -2,7 +2,7 @@ export const IsDevelopment = process.env.MODE === 'development';
 export const BaseUrl = IsDevelopment
   ? `http://api.weatherstack.com/current?access_key=${process.env.WEATHER_API_KEY}`
   : `https://cors-anywhere.herokuapp.com/http://api.weatherstack.com/current?access_key=${process.env.WEATHER_API_KEY}`;
-export const RequestDebounceTime = 100;
+export const RequestDebounceTime = 1000;
 
 // https://en.wikipedia.org/wiki/List_of_largest_cities
 export const Cities = [
@@ -21,3 +21,7 @@ export const Cities = [
   'Shenzhen',
   'Mumbai',
 ];
+
+export const LocalStoragePointer = 'my_cities';
+export const LocalStorageHeaderPointer = 'my_cities_header';
+export const LocalStorageShowGeoCityPointer = 'show_geo_city';

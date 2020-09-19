@@ -7,7 +7,41 @@ export interface Req<T = any, E = any> {
   error?: E;
 }
 
+type Location = {
+  location: {
+    name: string;
+    country: string;
+    region: string;
+  };
+};
+
+export type HeadCity = Location & {
+  current: {
+    temperature: number;
+    weather_icon: string;
+    humidity: number;
+    weather_description: string;
+  };
+};
 export type City = HeadCity & {
+  current: {
+    temperature: number;
+    weather_icon: string;
+    weather_description: string;
+    wind_speed: number;
+    wind_degree: number;
+    wind_dir: string;
+    pressure: number;
+    humidity: number;
+    visibility: number;
+  };
+  favorite: boolean;
+  notes: {
+    note: string;
+  }[];
+};
+
+export type ApiResponse = Location & {
   current: {
     temperature: number;
     weather_icons: string[];
@@ -23,17 +57,4 @@ export type City = HeadCity & {
   notes: {
     note: string;
   }[];
-};
-
-export type HeadCity = {
-  location: {
-    name: string;
-    country: string;
-    region: string;
-  };
-  current: {
-    temperature: number;
-    weather_icons: string[];
-    humidity: number;
-  };
 };

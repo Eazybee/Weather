@@ -28,4 +28,4 @@ const getApiResponse = () => ({
 });
 
 export default getApiResponse;
-export { default as mocks } from './cities'
+export { default as mocks } from './cities';

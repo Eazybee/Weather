@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import AsyncSelect from 'react-select/async';
 import { CitiesContext, ActionType } from '<contexts>/Cities';
 import request from '<helpers>/request';
-import { City } from '<helpers>/typings';
+import { ApiResponse } from '<helpers>/typings';
 
 let timer: number;
 const Input = () => {
@@ -35,7 +35,7 @@ const Input = () => {
       if (inputValue.trim() !== '') {
         try {
           const response = (await request('get', { query: inputValue })) as {
-            data: City;
+            data: ApiResponse;
             error?: any;
           };
 
@@ -58,8 +58,8 @@ const Input = () => {
               },
               current: {
                 temperature: current.temperature,
-                weather_icons: current.weather_icons,
-                weather_descriptions: current.weather_descriptions,
+                weather_icons: current.weather_icons[0].toString(),
+                weather_descriptions: current.weather_descriptions[0].toString(),
                 wind_speed: current.wind_speed,
                 wind_degree: current.wind_degree,
                 wind_dir: current.wind_dir,
