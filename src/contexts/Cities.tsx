@@ -4,6 +4,7 @@ import request from '<helpers>/request';
 import DebounceError from '<helpers>/DebounceError';
 import { City } from '<helpers>/typings';
 import { Cities } from '<configs>/constants';
+// import { mocks } from '<mocks>/index';
 
 export enum ActionType {
   INITIALIZE = 'INITIALIZE',
@@ -88,7 +89,7 @@ const Provider = ({ children }: any) => {
           notes: [],
         }));
 
-        // const newState = [mock, mock1, mock2, mock3, mock4];
+        // const newState = mocks;
         newState.sort((a, b) => (
           a.location.name.toLowerCase() > b.location.name.toLowerCase() ? 1 : -1
         ));
