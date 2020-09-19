@@ -47,29 +47,31 @@ const Input = () => {
             current,
           } = response.data;
 
-          const opt = {
-            value: `${country}${name}${region}`,
-            label: name,
-            location: {
-              name,
-              country,
-              region,
-            },
-            current: {
-              temperature: current.temperature,
-              weather_icons: current.weather_icons,
-              weather_descriptions: current.weather_descriptions,
-              wind_speed: current.wind_speed,
-              wind_degree: current.wind_degree,
-              wind_dir: current.wind_dir,
-              pressure: current.pressure,
-              humidity: current.humidity,
-              visibility: current.visibility,
-            },
-            favorite: false,
-            notes: [],
-          };
-          return resolve([opt]);
+          if (name.toLowerCase().includes(inputValue.toLowerCase())) {
+            const opt = {
+              value: `${country}${name}${region}`,
+              label: name,
+              location: {
+                name,
+                country,
+                region,
+              },
+              current: {
+                temperature: current.temperature,
+                weather_icons: current.weather_icons,
+                weather_descriptions: current.weather_descriptions,
+                wind_speed: current.wind_speed,
+                wind_degree: current.wind_degree,
+                wind_dir: current.wind_dir,
+                pressure: current.pressure,
+                humidity: current.humidity,
+                visibility: current.visibility,
+              },
+              favorite: false,
+              notes: [],
+            };
+            return resolve([opt]);
+          }
         } catch (error) {
           resolve([]);
         }

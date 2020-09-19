@@ -40,6 +40,7 @@ module.exports = {
         { from: process.cwd()+'/public/statics', to: buildDir+'/statics' },
         { from: path.join(__dirname, '../public', 'manifest.json'), to: buildDir },
         { from: path.join(__dirname, '../public', 'robot.txt'), to: buildDir },
+        { from: path.join(__dirname, '../public', 'service-worker.js'), to: buildDir },
       ],
     }),
   ],

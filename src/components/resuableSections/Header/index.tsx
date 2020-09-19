@@ -63,7 +63,7 @@ const Header = () => {
                 </div>
               </div>
               <div className="deg">
-                <img src={state.current.weather_icons[0].toString()} alt=" " />
+                <img src={state.current.weather_icons[0].toString()} alt="" />
                 <Degree size="3rem" cSize="1.3rem" bottom="1.4rem">
                   {state.current.temperature}
                 </Degree>
