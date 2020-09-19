@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { CitiesContext } from '<contexts>/Cities';
 import { HeaderContext } from '<contexts>/Header';
 import Table from '<components>/resuableSections/Table';
-import Notes from '<components>/resuableSections/Notes/Notes';
+import Notes from '<components>/resuableSections/Notes';
 import { City } from '<helpers>/typings';
+import styles from './styled.css';
 
 const InfoPage = () => {
   const [state, setState] = useState<Record<string, any>>();
@@ -42,12 +43,12 @@ const InfoPage = () => {
 
     if (myIndex !== undefined && !Number.isNaN(Number(myIndex))) {
       const info = citiesState[myIndex];
-      const { weather_icons, weather_descriptions, ...rest } = info.current;
+      const { weather_icon, weather_description, ...rest } = info.current;
 
       setState({
         data: {
           ...rest,
-          weather_descriptions: weather_descriptions.join(','),
+          weather_description,
         },
         index: myIndex,
         notes: info.notes,
@@ -79,16 +80,7 @@ const InfoPage = () => {
 };
 
 InfoPage.Style = styled.section`
-  padding: 1rem 5rem;
-
-  .foot {
-    padding: 1rem 0;
-    margin-top: 4rem;
-  }
-
-  @media screen and (max-width: 1000px) {
-    padding: 0 1rem;
-  }
+  ${styles}
 `;
 
 export default InfoPage;

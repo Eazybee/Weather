@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 import Card, { Props as CardProps } from '<components>/ui/Card';
+import styles from './styled.css';
 
 const CardList: FC<Props> & {
   Styled: StyledComponent<'div', any, Props, never>;
@@ -17,12 +18,8 @@ const CardList: FC<Props> & {
 };
 
 CardList.Styled = styled.div`
-  display: flex;
   flex-flow: ${({ direction }: Props) => direction} nowrap;
-  padding: 2rem;
-  border: 0.1rem solid #cecece;
-  border-radius: 1rem;
-  overflow: scroll;
+
   ${({ direction }: Props) => `
       ${
   direction === 'row'
@@ -30,7 +27,7 @@ CardList.Styled = styled.div`
         width: 100%;
         height: fit-content;
 
-        > button {
+        > .cardBtn {
           margin-top: 0;
           margin-bottom: 0;
           min-width: 10rem;
@@ -42,7 +39,7 @@ CardList.Styled = styled.div`
         background: white;
         margin-left: 1rem;
 
-        > button {
+        > .cardBtn {
           width: 100%;
           margin-left: 0;
           margin-right: 0;
@@ -50,19 +47,7 @@ CardList.Styled = styled.div`
       `
 }
   `}
-
-  @media screen  and (max-width:880px) {
-    width: 100%;
-    flex-flow: row nowrap;
-    height: fit-content;
-    position: static;
-    margin: 0;
-
-    > button {
-      margin: 0 0.5rem;
-      width: 10rem;
-    }
-  }
+  ${styles}
 `;
 
 CardList.defaultProps = {
@@ -70,7 +55,7 @@ CardList.defaultProps = {
   width: 'full',
 };
 
-type Props = {
+export type Props = {
   cards: CardProps[];
   direction?: 'row' | 'column';
   width?: 'full' | 'fraction';
