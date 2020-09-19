@@ -14,6 +14,7 @@ const config = {
     '^<styles>/(.*)$': '<rootDir>/src/styles/$1',
     '^<assests>/(.*)$': '<rootDir>/src/assests/$1',
     '^<configs>/(.*)$': '<rootDir>/src/configs/$1',
+    '^<contexts>/(.*)$': '<rootDir>/src/contexts/$1',
     '^<mocks>/(.*)$': '<rootDir>/src/__mocks__/$1',
   },
   collectCoverage: true,

@@ -4,13 +4,12 @@ import { RequestDebounceTime } from '<configs>/constants';
 import api from '<configs>/api';
 import DebounceError from './DebounceError';
 
-
 const urlsRequested: { apiMethod: string; option: Record<string, any> }[] = [];
-
 
 const requestApi: Request = async (method, data) => {
   const debounce = async (
-    option: Record<string, any>, apiMethod: ApiRequestMethodType,
+    option: Record<string, any>,
+    apiMethod: ApiRequestMethodType,
   ): Promise<string> => {
     const nextUrlIndex = urlsRequested.push({ option, apiMethod });
 
@@ -20,9 +19,11 @@ const requestApi: Request = async (method, data) => {
           isEqual(urlsRequested[i].option, option)
             && urlsRequested[i].apiMethod === apiMethod
         ) {
-          return reject(new DebounceError(
-            'Multiple Requests To Same Url With The Same Data Debounced. Sent Most Recent',
-          ));
+          return reject(
+            new DebounceError(
+              'Multiple Requests To Same Url With The Same Data Debounced. Sent Most Recent',
+            ),
+          );
         }
       }
 
@@ -32,9 +33,10 @@ const requestApi: Request = async (method, data) => {
 
   try {
     await debounce(data, method);
-
     // @ts-ignore
     const response = await api[method]('', { params: data });
+
+    if (response.data.error) throw response.data.error;
 
     return {
       data: response.data,

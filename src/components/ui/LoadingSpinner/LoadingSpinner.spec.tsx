@@ -3,7 +3,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen, waitFor } from '<helpers>/testUtils/testUtils';
 import LoadingSpinner from '.';
 
-
 describe('Loading Spinner', () => {
   it('should render with default props and styles', async () => {
     const { container } = render(<LoadingSpinner />, {});

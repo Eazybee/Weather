@@ -1,19 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeType } from '<hooks>/useTheme';
-import Header from '<components>/resuableSections/Header';
-
+import Cities from '<components>/resuableSections/Cities';
 
 const HomePage = () => (
   <HomePage.Style>
-    <Header />
+    <Cities />
   </HomePage.Style>
 );
 
-HomePage.Style = styled.section`
-`;
+HomePage.Style = styled.section``;
 
-type Prop = {
-  theme: ThemeType;
-};
 export default HomePage;

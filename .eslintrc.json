@@ -30,6 +30,8 @@
     "react/jsx-props-no-spreading": "off",
     "import/extensions": "off",
     "no-console": "off",
+    "consistent-return":"warn",
+    "no-array-index-key": "off",
     "no-multiple-empty-lines": [
       "error",
       { "max": 2,

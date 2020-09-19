@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
@@ -10,68 +10,39 @@ import CloudyDay from '<assests>/images/cloudy.jpg';
 import RainyDay from '<assests>/images/rainy.jpg';
 import LazyLoader from '<components>/ui/LazyLoad';
 import Loading from '<components>/ui/LoadingSpinner';
-import request from '<helpers>/request';
-import DebounceError from '<helpers>/DebounceError';
-
+import { HeaderContext } from '<contexts>/Header';
+import { HeadCity } from '<helpers>/typings';
 
 const Header = () => {
-  const [state, setState] = useState<any>();
+  const [state, setState] = useState<HeadCity & { imgSrc?: any }>();
+  const { state: headerState } = useContext(HeaderContext);
 
   useEffect(() => {
-    (async () => {
-      let query;
+    let imgSrc;
 
-      if (navigator.geolocation) {
-        const position: Position | undefined = await new Promise((res) => {
-          navigator.geolocation.getCurrentPosition(
-            (pos) => res(pos),
-            () => res(),
-          );
-        });
-
-        if (position) {
-          query = `${position.coords.latitude},${position.coords.longitude}`;
-        } else {
-          query = 'Tokyo';
-        }
-      } else {
-        query = 'Tokyo';
-      }
-
-      try {
-        const response = await request('get', { query });
-
-        let imgSrc;
-
-        const { temperature } = response.data.current;
-        if (response.data.current.humidity >= 94) {
+    if (headerState.homeCity) {
+      const { location, current, ...rest } = headerState.homeCity;
+      if (location && current) {
+        if (current.humidity >= 94) {
           imgSrc = RainyDay;
-        } else if (temperature <= 19) {
+        } else if (current.temperature <= 19) {
           imgSrc = WinterDay;
-        } else if (temperature > 19 && temperature <= 24) {
+        } else if (current.temperature > 19 && current.temperature <= 24) {
           imgSrc = RainyDay;
-        } else if (temperature > 24 && temperature <= 29) {
+        } else if (current.temperature > 24 && current.temperature <= 29) {
           imgSrc = CloudyDay;
         } else {
           imgSrc = SunnyDay;
         }
         setState({
-          current: response.data.current,
-          location: {
-            country: response.data.location.country,
-            city: response.data.location.name,
-            region: response.data.location.region,
-          },
+          current,
+          location,
           imgSrc,
+          ...rest,
         });
-      } catch (error) {
-        console.log(error instanceof DebounceError);
-        if (error instanceof DebounceError) {
-          console.error(error);
-        }
       }
-    })();
-  }, []);
+    }
+  }, [headerState]);
 
   return (
     <Header.Style>
@@ -79,25 +50,27 @@ const Header = () => {
         <LazyLoader imgSrc={state?.imgSrc || SunnyDay} alt="" />
       </div>
       <div className="content">
-        {!state
-          ? <Loading height={100} />
-          : (
-            <div className="left">
+        {!state ? (
+          <Loading height={100} />
+        ) : (
+          <div className="left">
+            <div>
               <div>
-                <div>
-                  <FontAwesomeIcon icon={faMapMarkerAlt} />
-                  <div className="location">
-                    <p className="city">{state.location.city}</p>
-                    <p className="country">{state.location.country}</p>
-                  </div>
-                </div>
-                <div className="deg">
-                  <img src={state.current.weather_icons[0].toString()} alt=" " />
-                  <Degree size="3rem" cSize="1.3rem" bottom="1.4rem">{state.current.temperature}</Degree>
+                <FontAwesomeIcon icon={faMapMarkerAlt} />
+                <div className="location">
+                  <p className="city">{state.location.name}</p>
+                  <p className="country">{state.location.country}</p>
                 </div>
               </div>
+              <div className="deg">
+                <img src={state.current.weather_icons[0].toString()} alt=" " />
+                <Degree size="3rem" cSize="1.3rem" bottom="1.4rem">
+                  {state.current.temperature}
+                </Degree>
+              </div>
             </div>
-          )}
+          </div>
+        )}
         <div className="right">
           <h1>Weather</h1>
         </div>
@@ -106,18 +79,19 @@ const Header = () => {
   );
 };
 
-
 Header.Style = styled.section`
-  p, p > span, h1{
+  p,
+  p > span,
+  h1 {
     color: white;
-    text-shadow: 1px 2px  2px black;
+    text-shadow: 1px 2px 2px black;
     font-weight: bold;
   }
   & > div {
     width: 100vw;
     height: 50vh;
 
-    &.bg{
+    &.bg {
       position: absolute;
       z-index: -1;
     }
@@ -159,10 +133,10 @@ Header.Style = styled.section`
         display: flex;
 
         svg {
-          margin-right: .8rem;
+          margin-right: 0.8rem;
           font-size: 1.4rem;
           position: relative;
-          top: .35rem;
+          top: 0.35rem;
 
           path {
             fill: #59576d;
@@ -188,13 +162,11 @@ Header.Style = styled.section`
           font-size: 2rem;
         }
         .country {
-          font-size: .8rem;
+          font-size: 0.8rem;
           font-weight: normal;
         }
       }
     }
-
-
 
     & > div.right {
       display: flex;
@@ -209,11 +181,9 @@ Header.Style = styled.section`
     }
   }
 
-
-  @media screen  and (max-width:650px){
+  @media screen and (max-width: 650px) {
     & > div {
       &.content {
-
         & > div.left {
           padding-left: 5%;
         }
@@ -227,7 +197,7 @@ Header.Style = styled.section`
       }
     }
   }
-  @media screen  and (max-width:420px){
+  @media screen and (max-width: 420px) {
     & > div {
       &.content {
         display: flex;
@@ -240,7 +210,6 @@ Header.Style = styled.section`
         & > div.left {
           padding-left: 0;
           align-items: center;
-
         }
         & > div.right {
           padding-right: 0;
