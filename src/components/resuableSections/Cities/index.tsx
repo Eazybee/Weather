@@ -7,6 +7,7 @@ import { CitiesContext, ActionType } from '<contexts>/Cities';
 import { Props as CardProps } from '<components>/ui/Card';
 import styles from './styled.css';
 
+
 const Cities = () => {
   const { state: citiesState, dispatch } = useContext(CitiesContext);
   const history = useHistory();

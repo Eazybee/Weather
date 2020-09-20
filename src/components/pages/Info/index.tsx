@@ -8,6 +8,8 @@ import Table from '<components>/resuableSections/Table';
 import Notes from '<components>/resuableSections/Notes';
 import { City } from '<helpers>/typings';
 import styles from './styled.css';
+import LoadingSpinner from '<components>/ui/LoadingSpinner';
+
 
 const InfoPage = () => {
   const [state, setState] = useState<Record<string, any>>();
@@ -16,65 +18,77 @@ const InfoPage = () => {
   const { state: citiesState, dispatch } = useContext(CitiesContext);
   const history = useHistory();
 
+
   useEffect(() => {
-    const {
-      // @ts-ignore
-      index,
-      location,
-      current,
-    } = browserLocation.state as { index: number } & City;
+    (async () => {
+      const {
+        // @ts-ignore
+        index,
+        location,
+        current,
+      } = browserLocation.state as { index: number } & City;
 
-    let myIndex;
-    if (index !== null && !Number.isNaN(Number(index)) && citiesState[index]) {
-      myIndex = index;
-    } else if (current && location) {
-      for (let i = 0; i < citiesState.length; i += 1) {
-        const { location: tempLocation } = citiesState[i];
-        if (
-          tempLocation.name === location.name
-          && tempLocation.region === location.region
-          && tempLocation.country === location.country
-        ) {
-          myIndex = i;
-          break;
-        }
+      let myIndex: number;
+
+      if (index !== null && !Number.isNaN(Number(index))) {
+        myIndex = index;
+      } else if (current && location) {
+        await new Promise((res) => {
+          setTimeout(() => {
+            for (let i = 0; i < citiesState.length; i += 1) {
+              const { location: tempLocation } = citiesState[i];
+              if (
+                tempLocation.name === location.name
+                && tempLocation.region === location.region
+                && tempLocation.country === location.country
+              ) {
+                myIndex = i;
+                break;
+              }
+            }
+            res();
+          }, 3000);
+        });
       }
-    }
 
-    if (myIndex !== undefined && !Number.isNaN(Number(myIndex))) {
-      const info = citiesState[myIndex];
-      const { weather_icon, weather_description, ...rest } = info.current;
+      // @ts-ignore
+      if (myIndex !== undefined && !Number.isNaN(Number(myIndex))) {
+        const info = citiesState[myIndex];
+        if (info) {
+          const { weather_icon, weather_description, ...rest } = info.current;
 
-      setState({
-        data: {
-          ...rest,
-          weather_description,
-        },
-        index: myIndex,
-        notes: info.notes,
-      });
-      setHeader((e) => ({
-        ...e,
-        homeCity: {
-          current: info.current,
-          location: info.location,
-        },
-      }));
-    } else {
-      history.push('/');
-    }
+          setState({
+            data: {
+              ...rest,
+              weather_description,
+            },
+            index: myIndex,
+            notes: info.notes,
+          });
+          setHeader((e) => ({
+            ...e,
+            homeCity: {
+              current: info.current,
+              location: info.location,
+            },
+          }));
+        }
+      } else {
+        history.push('/');
+      }
+    })();
   }, [browserLocation.state, citiesState, history, setHeader]);
 
   return (
     <InfoPage.Style>
-      {state && (
+      {state ? (
         <>
           <Table data={state.data} />
           <div className="foot">
             <Notes notes={state.notes} cityIndex={state.index} dispatch={dispatch} />
           </div>
         </>
-      )}
+      ) : <LoadingSpinner />}
     </InfoPage.Style>
   );
 };

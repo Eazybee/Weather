@@ -23,13 +23,14 @@ const Header = () => {
     if (headerState.homeCity) {
       const { location, current, ...rest } = headerState.homeCity;
       if (location && current) {
-        if (current.humidity >= 94) {
-          imgSrc = RainyDay;
-        } else if (current.temperature <= 19) {
+        if (current.temperature <= 19) {
           imgSrc = WinterDay;
-        } else if (current.temperature > 19 && current.temperature <= 24) {
+        } else if (
+          current.humidity >= 94
+          || current.weather_description.toLowerCase().includes('rain')
+        ) {
           imgSrc = RainyDay;
-        } else if (current.temperature > 24 && current.temperature <= 29) {
+        } else if (current.weather_description.toLowerCase().includes('cloud')) {
           imgSrc = CloudyDay;
         } else {
           imgSrc = SunnyDay;

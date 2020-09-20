@@ -15,7 +15,7 @@
       "<assests>/*": ["./src/assests/*"],
       "<configs>/*": ["./src/configs/*"],
       "<contexts>/*": ["./src/contexts/*"],
-      "<mocks>/*": ["./src/__mocks__/*"],
+      "<mocks>/*": ["./test/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -33,7 +33,7 @@
   },
   "experimentalDecorators": true,
   "include": [
-    "src", "src/custom.d.ts"
+    "src", "src/custom.d.ts", "test/index.ts", "test/testUtils.ts", "test/Providers.tsx"
   ],
   "exclude": [
     "node_modules"

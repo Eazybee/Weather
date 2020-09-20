@@ -2,7 +2,7 @@ import React, {
   createContext, useState, useEffect, useContext, useCallback,
 } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import request from '<helpers>/request';
+import { requestApi as request } from '<helpers>/request';
 import DebounceError from '<helpers>/DebounceError';
 import { CitiesContext, ActionType } from './Cities';
 import { HeadCity, ApiResponse, City } from '<helpers>/typings';
@@ -31,7 +31,6 @@ const Provider = ({ children }: any) => {
   const { state: citiesState, dispatch } = useContext(CitiesContext);
   useEffect(() => {
     if (!ref && navigator.geolocation && showHome && !loadFirstCity && geoCity) {
-      console.log(ref);
       localStorage.setItem(LocalStorageShowGeoCityPointer, '1');
       dispatch({ type: ActionType.ADD, payload: geoCity });
       history.push('/info', geoCity);
@@ -60,12 +59,18 @@ const Provider = ({ children }: any) => {
   const homeCity = citiesState.find((city) => city.favorite) || citiesState[0];
   useEffect(() => {
     (async () => {
+      const storageState = localStorage.getItem(LocalStorageHeaderPointer);
       if (loadFirstCity && showHome) {
         if (citiesState.length) {
           setState((stat) => ({
             ...stat,
             homeCity,
           }));
+          localStorage.setItem(
+            LocalStorageHeaderPointer, JSON.stringify({ homeCity, loadFirstCity: true }),
+          );
+        } else if (storageState) {
+          setState(JSON.parse(storageState));
         } else {
           const newState = await updateHeader(Cities.sort()[0]);
           if (newState) {
@@ -85,6 +90,25 @@ const Provider = ({ children }: any) => {
                 },
               },
             }));
+            localStorage.setItem(
+              LocalStorageHeaderPointer,
+              JSON.stringify({
+                homeCity: {
+                  location: {
+                    name: newState.location.name,
+                    country: newState.location.country,
+                    region: newState.location.region,
+                  },
+                  current: {
+                    temperature: newState.current.temperature,
+                    weather_icon: newState.current.weather_icons[0],
+                    humidity: newState.current.humidity,
+                    weather_description: newState.current.weather_descriptions[0],
+                  },
+                },
+                loadFirstCity: true,
+              }),
+            );
           }
         }
       }
@@ -93,38 +117,56 @@ const Provider = ({ children }: any) => {
 
   useEffect(() => {
     (async () => {
-      if (navigator.geolocation) {
-        if (showHome && !loadFirstCity) {
+      if (showHome && !loadFirstCity) {
+        const storageState = localStorage.getItem(LocalStorageHeaderPointer);
+        if (storageState) {
+          setState(JSON.parse(storageState));
+        }
+        if (navigator.geolocation) {
           const position: Position | undefined = await new Promise((res) => {
             navigator.geolocation.getCurrentPosition(
               (pos) => res(pos),
               () => res(),
             );
           });
-
           if (position) {
             const query = `${position.coords.latitude},${position.coords.longitude}`;
             const newState = await updateHeader(query);
             if (newState) {
-              localStorage.setItem(LocalStorageHeaderPointer, JSON.stringify(newState));
-              if (newState) {
-                setState((stat) => ({
-                  ...stat,
-                  homeCity: {
-                    location: {
-                      name: newState.location.name,
-                      country: newState.location.country,
-                      region: newState.location.region,
-                    },
-                    current: {
-                      temperature: newState.current.temperature,
-                      weather_icon: newState.current.weather_icons[0],
-                      humidity: newState.current.humidity,
-                      weather_description: newState.current.weather_descriptions[0],
-                    },
+              localStorage.setItem(LocalStorageHeaderPointer, JSON.stringify({
+                homeCity: {
+                  location: {
+                    name: newState.location.name,
+                    country: newState.location.country,
+                    region: newState.location.region,
                   },
-                }));
-              }
+                  current: {
+                    temperature: newState.current.temperature,
+                    weather_icon: newState.current.weather_icons[0],
+                    humidity: newState.current.humidity,
+                    weather_description: newState.current.weather_descriptions[0],
+                  },
+                },
+                loadFirstCity: false,
+              }));
+
+              setState((stat) => ({
+                ...stat,
+                homeCity: {
+                  location: {
+                    name: newState.location.name,
+                    country: newState.location.country,
+                    region: newState.location.region,
+                  },
+                  current: {
+                    temperature: newState.current.temperature,
+                    weather_icon: newState.current.weather_icons[0],
+                    humidity: newState.current.humidity,
+                    weather_description: newState.current.weather_descriptions[0],
+                  },
+                },
+              }));
+
 
               if (!ref) {
                 const { current, ...rest } = newState;
@@ -147,18 +189,11 @@ const Provider = ({ children }: any) => {
               }
               return true;
             }
-
-            const storageState = localStorage.getItem(LocalStorageHeaderPointer);
-            if (storageState) {
-              console.log(newState, 'bee');
-              return setState(JSON.parse(storageState));
-            }
           }
         }
-
-        if (showHome) {
-          return setState((stat) => ({ ...stat, loadFirstCity: true }));
-        }
+      }
+      if (showHome) {
+        return setState((stat) => ({ ...stat, loadFirstCity: true }));
       }
     })();
   }, [loadFirstCity, ref, showHome, updateHeader]);

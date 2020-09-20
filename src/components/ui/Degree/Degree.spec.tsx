@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render } from '<helpers>/testUtils/testUtils';
+import { render } from '<mocks>/testUtils';
 import Degree from '.';
 
 describe('Degree', () => {

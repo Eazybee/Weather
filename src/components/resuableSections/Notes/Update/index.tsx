@@ -4,7 +4,7 @@ import React, {
 import styled, { StyledComponent } from 'styled-components';
 import styles from './styled.css';
 
-type Props = {
+export type Props = {
   deleteNote: () => void;
   updateNote: (note: string) => void;
   goBack: () => any;

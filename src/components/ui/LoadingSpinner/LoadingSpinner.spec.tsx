@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen, waitFor } from '<helpers>/testUtils/testUtils';
+import { render, screen, waitFor } from '<mocks>/testUtils';
 import LoadingSpinner from '.';
 
 describe('Loading Spinner', () => {
