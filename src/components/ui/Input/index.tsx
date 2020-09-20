@@ -15,24 +15,24 @@ const Input = () => {
       clearTimeout(timer);
     }
 
-    timer = setTimeout(async () => {
-      if (citiesState.length) {
-        const existingRec: any = [];
-        citiesState.forEach((city, index) => {
-          const { location } = city;
-          if (location.name.toLowerCase().includes(inputValue.toLowerCase())) {
-            existingRec.push({
-              label: location.name,
-              value: `${location.country}${location.name}${location.region}`,
-              index,
-            });
+    if (inputValue.trim() !== '') {
+      timer = setTimeout(async () => {
+        if (citiesState.length) {
+          const existingRec: any = [];
+          citiesState.forEach((city, index) => {
+            const { location } = city;
+            if (location.name.toLowerCase().includes(inputValue.toLowerCase())) {
+              existingRec.push({
+                label: location.name,
+                value: `${location.country}${location.name}${location.region}`,
+                index,
+              });
+            }
+          });
+          if (existingRec.length) {
+            return resolve(existingRec);
           }
-        });
-        if (existingRec.length) {
-          return resolve(existingRec);
         }
-      }
-      if (inputValue.trim() !== '') {
         try {
           const response = (await request('get', { query: inputValue })) as {
             data: ApiResponse;
@@ -58,8 +58,8 @@ const Input = () => {
               },
               current: {
                 temperature: current.temperature,
-                weather_icons: current.weather_icons[0].toString(),
-                weather_descriptions: current.weather_descriptions[0].toString(),
+                weather_icon: current.weather_icons[0].toString(),
+                weather_description: current.weather_descriptions[0].toString(),
                 wind_speed: current.wind_speed,
                 wind_degree: current.wind_degree,
                 wind_dir: current.wind_dir,
@@ -75,17 +75,19 @@ const Input = () => {
         } catch (error) {
           resolve([]);
         }
-      }
 
+        return resolve([]);
+      }, 2000);
+    } else {
       return resolve([]);
-    }, 2000);
+    }
   });
 
   const onChange = async (e: { value: string; label: string; index: number }) => {
     const {
       value, label, index, ...rest
     } = e;
-    console.log(index, rest);
+
     if (index === null || Number.isNaN(Number(index))) {
       dispatch({ type: ActionType.ADD, payload: rest });
     }

@@ -6,7 +6,7 @@ import UpdateNote from './Update';
 import { ActionType } from '<contexts>/Cities';
 import styles from './styled.css';
 
-type Props = {
+export type Props = {
   notes: {
     note: string;
   }[];
@@ -60,6 +60,8 @@ const Notes: FC<Props> & {
     });
   };
 
+  const showUpdateCard = (key: number) => () => setState({ toggle: true, current: key });
+
   return (
     <Notes.Styled>
       <h1>Notes</h1>
@@ -68,7 +70,11 @@ const Notes: FC<Props> & {
           <div className="main">
             <div className="add">
               <form onSubmit={addNote}>
-                <textarea value={newNote} onChange={(e) => setNewNote(e.target.value)} />
+                <textarea
+                  value={newNote}
+                  onChange={(e) => setNewNote(e.target.value)}
+                  placeholder="New note goes here"
+                />
                 <button type="submit">Add</button>
               </form>
             </div>
@@ -76,8 +82,15 @@ const Notes: FC<Props> & {
             {notes.length ? (
               <div className="notes">
                 {notes.map((note, key) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <div key={key} role="button" onClick={() => setState({ toggle: true, current: key })}>
+                  <div
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={key}
+                    role="button"
+                    tabIndex={0}
+                    onClick={showUpdateCard(key)}
+                    onKeyPress={showUpdateCard(key)}
+                    aria-label="Edit"
+                  >
                     <p>{note.note}</p>
                     <button type="button" aria-label="Delete" onClick={(e) => deleteNote(key, e)}>
                       X

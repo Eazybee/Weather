@@ -1,11 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, fireEvent } from '<helpers>/testUtils/testUtils';
+import { render, fireEvent } from '<mocks>/testUtils';
 import Card, { Props } from '.';
-import { mocks } from '<mocks>/index';
+import { cities } from '<mocks>/index';
 
 
-const [mockCity] = mocks;
+const [mockCity] = cities;
 let props: Props;
 
 describe('Card', () => {
@@ -14,8 +14,8 @@ describe('Card', () => {
       favorite: mockCity.favorite,
       name: mockCity.location.name,
       temperature: mockCity.current.temperature,
-      imgScr: mockCity.current.weather_icons[0],
-      imgAlt: mockCity.current.weather_descriptions[0],
+      imgScr: mockCity.current.weather_icon,
+      imgAlt: mockCity.current.weather_description,
       onClick: () => {},
       handleLike: () => {},
       handleDelete: () => {},

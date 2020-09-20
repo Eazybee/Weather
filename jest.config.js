@@ -15,7 +15,7 @@ const config = {
     '^<assests>/(.*)$': '<rootDir>/src/assests/$1',
     '^<configs>/(.*)$': '<rootDir>/src/configs/$1',
     '^<contexts>/(.*)$': '<rootDir>/src/contexts/$1',
-    '^<mocks>/(.*)$': '<rootDir>/src/__mocks__/$1',
+    '^<mocks>/(.*)$': '<rootDir>/test/$1',
   },
   collectCoverage: true,
   coveragePathIgnorePatterns: [

@@ -10,13 +10,13 @@ const Card: FC<Props> & {
   Styled: StyledComponent<'div', any, {
     delay?: number, ref?: React.MutableRefObject<HTMLDivElement| null>
     onClick?: any,
+    onKeyPress?: any,
   }, never>;
 } = (props: Props) => {
   const handleLike = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     props.handleLike();
   };
-
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     props.handleDelete();
@@ -26,7 +26,7 @@ const Card: FC<Props> & {
     name, temperature, favorite, imgScr, onClick, delay, imgAlt,
   } = props;
   return (
-    <Card.Styled delay={delay} onClick={onClick} className="cardBtn">
+    <Card.Styled tabIndex={0} onKeyPress={onClick} role="button" delay={delay} onClick={onClick} className="cardBtn">
       <div>
         <button title="Like" type="button" onClick={handleLike} className={`${favorite ? 'del' : ''}`}>
           <FontAwesomeIcon icon={favorite ? solidHeart : regHeart} />

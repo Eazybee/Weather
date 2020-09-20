@@ -26,7 +26,7 @@ module.exports = {
       '<assests>': path.resolve(__dirname, '../src/assests'),
       '<configs>': path.resolve(__dirname, '../src/configs'),
       '<contexts>': path.resolve(__dirname, '../src/contexts'),
-      '<mocks>': path.resolve(__dirname, '../src/__mocks__')
+      '<mocks>': path.resolve(__dirname, '../test')
     }
   },
   plugins: [

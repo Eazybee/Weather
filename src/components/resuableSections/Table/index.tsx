@@ -21,7 +21,7 @@ const Table: FC<Props> & {
             <span>
               {`${key.charAt(0).toUpperCase()}${key
                 .substr(1, key.length)
-                .replaceAll('_', ' ')}`}
+                .replace('_', ' ')}`}
             </span>
           </td>
           <td>

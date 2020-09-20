@@ -2,7 +2,7 @@
 import isEqual from 'lodash.isequal';
 import request from '<helpers>/request';
 import api from '<configs>/api';
-import getApiResponse from '<mocks>/index';
+import { getApiResponse } from '<mocks>/index';
 
 jest.mock('<configs>/api', () => ({
   get: jest.fn(() => Promise.resolve({

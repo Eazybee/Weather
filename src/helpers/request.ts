@@ -6,31 +6,31 @@ import DebounceError from './DebounceError';
 
 const urlsRequested: { apiMethod: string; option: Record<string, any> }[] = [];
 
-const requestApi: Request = async (method, data) => {
-  const debounce = async (
-    option: Record<string, any>,
-    apiMethod: ApiRequestMethodType,
-  ): Promise<string> => {
-    const nextUrlIndex = urlsRequested.push({ option, apiMethod });
+const debounce = async (
+  option: Record<string, any>,
+  apiMethod: ApiRequestMethodType,
+): Promise<string> => {
+  const nextUrlIndex = urlsRequested.push({ option, apiMethod });
 
-    return new Promise((resolve, reject) => setTimeout(() => {
-      for (let i = nextUrlIndex; i < urlsRequested.length; i += 1) {
-        if (
-          isEqual(urlsRequested[i].option, option)
-            && urlsRequested[i].apiMethod === apiMethod
-        ) {
-          return reject(
-            new DebounceError(
-              'Multiple Requests To Same Url With The Same Data Debounced. Sent Most Recent',
-            ),
-          );
-        }
+  return new Promise((resolve, reject) => setTimeout(() => {
+    for (let i = nextUrlIndex; i < urlsRequested.length; i += 1) {
+      if (
+        isEqual(urlsRequested[i].option, option)
+          && urlsRequested[i].apiMethod === apiMethod
+      ) {
+        return reject(
+          new DebounceError(
+            'Multiple Requests To Same Url With The Same Data Debounced. Sent Most Recent',
+          ),
+        );
       }
+    }
 
-      return resolve();
-    }, RequestDebounceTime));
-  };
+    return resolve();
+  }, RequestDebounceTime));
+};
 
+export const requestApi: Request = async (method, data) => {
   try {
     await debounce(data, method);
     // @ts-ignore
