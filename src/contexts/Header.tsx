@@ -121,8 +121,7 @@ const Provider = ({ children }: any) => {
         const storageState = localStorage.getItem(LocalStorageHeaderPointer);
         if (storageState) {
           setState(JSON.parse(storageState));
-        }
-        if (navigator.geolocation) {
+        } else if (navigator.geolocation) {
           const position: Position | undefined = await new Promise((res) => {
             navigator.geolocation.getCurrentPosition(
               (pos) => res(pos),
