@@ -7,7 +7,7 @@ const styles = css`
   border-radius: 1rem;
   overflow: scroll;
 
-  @media screen and (max-width: 880px) {
+  @media screen and (max-width: 880px), screen and (max-height: 630px)   {
     width: 100%;
     flex-flow: row nowrap;
     height: fit-content;

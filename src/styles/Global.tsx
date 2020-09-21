@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
 body {
   font-family: Arial, sans-serif;
   font-size: 16px;
+  min-height: 640px;
 }
 
 .LazyLoad{

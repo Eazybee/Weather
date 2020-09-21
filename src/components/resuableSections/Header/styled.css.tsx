@@ -8,9 +8,12 @@ const styles = css`
     text-shadow: 1px 2px 2px black;
     font-weight: bold;
   }
+  min-height: 250px;
+    height: 50vh;
   & > div {
     width: 100vw;
     height: 50vh;
+    min-height: 250px;
 
     &.bg {
       position: absolute;
