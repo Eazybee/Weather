@@ -10,7 +10,30 @@ const styles = css`
   }
   min-height: 250px;
     height: 50vh;
-  & > div {
+  & > div.nav {
+    padding: 1rem 5rem;
+    height: 3rem;
+    a {
+      height: 2rem;
+      font-weight: bold;
+      background: linear-gradient(to right,#00d2ff 0%,#3a7bd5 51%);
+      color: white;
+      transition: 0.5s linear;
+      position: relative;
+      padding: .4rem 1rem;
+      border-radius: .4rem;
+      opacity: 0.8;
+      box-shadow: 1px 2px #00000047;
+
+      &:hover, &:focus {
+        opacity: 1;
+        top: -1px;
+        box-shadow: 2px 3px 9px #00000047;
+      }
+
+    }
+  }
+  & > div:not(.nav) {
     width: 100vw;
     height: 50vh;
     min-height: 250px;
@@ -24,6 +47,7 @@ const styles = css`
       display: flex;
       flex-flow: row;
       justify-content: space-between;
+      height: calc(100% -3rem);
     }
   }
   div.bg img {
@@ -105,8 +129,13 @@ const styles = css`
     }
   }
 
+  @media screen and (max-width: 1000px)   {
+    & > div.nav {
+      padding: 1rem;
+    }
+  }
   @media screen and (max-width: 650px) {
-    & > div {
+    & > div:not(.nav) {
       &.content {
         & > div.left {
           padding-left: 5%;
@@ -122,7 +151,7 @@ const styles = css`
     }
   }
   @media screen and (max-width: 420px) {
-    & > div {
+    & > div:not(.nav) {
       &.content {
         display: flex;
         flex-flow: column-reverse;
