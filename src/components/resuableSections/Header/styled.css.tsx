@@ -47,7 +47,7 @@ const styles = css`
       display: flex;
       flex-flow: row;
       justify-content: space-between;
-      height: calc(100% -3rem);
+      height: calc(100% - 3rem);
     }
   }
   div.bg img {
