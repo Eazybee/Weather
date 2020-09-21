@@ -6,7 +6,7 @@ A progressive web application that allows users to look up current weather infor
 [![Maintainability](https://api.codeclimate.com/v1/badges/391f1d82943b515d52dd/maintainability)](https://codeclimate.com/github/Eazybee/Weather/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/391f1d82943b515d52dd/test_coverage)](https://codeclimate.com/github/Eazybee/Weather/test_coverage)
 
-<img alt="Homepage Screenshot" src="https://github.com/Eazybee/Weather/blob/master/screenshots/Screenshot%202020-09-20%20at%2023.39.01.png?raw=true">
+<img alt="Homepage Screenshot" src="https://github.com/Eazybee/Weather/blob/ft/add-nav-header/screenshots/Screenshot%202020-09-21%20at%2023.20.58.png?raw=true">
 <img src="https://github.com/Eazybee/Weather/blob/master/screenshots/Screenshot%202020-09-20%20at%2023.39.15.png?raw=true">
 
 ## Hosted
