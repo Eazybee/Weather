@@ -21,34 +21,35 @@ const InfoPage = () => {
 
   useEffect(() => {
     (async () => {
-      const {
-        // @ts-ignore
-        index,
-        location,
-        current,
-      } = browserLocation.state as { index: number } & City;
-
       let myIndex: number;
 
-      if (index !== null && !Number.isNaN(Number(index))) {
-        myIndex = index;
-      } else if (current && location) {
-        await new Promise((res) => {
-          setTimeout(() => {
-            for (let i = 0; i < citiesState.length; i += 1) {
-              const { location: tempLocation } = citiesState[i];
-              if (
-                tempLocation.name === location.name
+      if (browserLocation.state) {
+        const {
+          // @ts-ignore
+          index, location, current,
+        } = browserLocation?.state as { index: number } & City;
+
+
+        if (index !== null && !Number.isNaN(Number(index))) {
+          myIndex = index;
+        } else if (current && location) {
+          await new Promise((res) => {
+            setTimeout(() => {
+              for (let i = 0; i < citiesState.length; i += 1) {
+                const { location: tempLocation } = citiesState[i];
+                if (
+                  tempLocation.name === location.name
                 && tempLocation.region === location.region
                 && tempLocation.country === location.country
-              ) {
-                myIndex = i;
-                break;
+                ) {
+                  myIndex = i;
+                  break;
+                }
               }
-            }
-            res();
-          }, 3000);
-        });
+              res();
+            }, 3000);
+          });
+        }
       }
 
       // @ts-ignore
