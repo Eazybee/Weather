@@ -45,7 +45,7 @@ const styles = css`
 
   @media screen and (min-height: 1000px)   {
     div.fle  {
-      height: 20vh;
+      height: 25vh;
     }
   }
 

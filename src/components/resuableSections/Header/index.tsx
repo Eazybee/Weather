@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import Degree from '<components>/ui/Degree';
 import SunnyDay from '<assests>/images/sunny.jpg';
 import WinterDay from '<assests>/images/winter.jpg';
@@ -49,6 +50,9 @@ const Header = () => {
     <Header.Style>
       <div className="bg">
         <LazyLoader imgSrc={state?.imgSrc || SunnyDay} alt="" />
+      </div>
+      <div className="nav">
+        <Link to="/"> Home </Link>
       </div>
       <div className="content">
         {!state ? (

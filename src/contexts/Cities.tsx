@@ -53,27 +53,56 @@ const Provider = ({ children }: any) => {
             value: { data: ApiResponse };
           }[];
 
-
-          // if there are cached city, update them with new city info from api
-          if (myCities && newState.length > 0 && succesfulRes.length) {
-            const updatedState = [];
-            for (let i = 0; i < newState.length; i += 1) {
-              const currentCity = newState[i];
-              let data;
-              if (currentCity.location.name === succesfulRes[i].value.data.location.name) {
-                data = succesfulRes[i].value.data;
-              } else {
-                const found = succesfulRes
-                  .find(({ value }) => value.data.location.name === currentCity.location.name);
-
-                if (found) {
-                  data = found.value.data;
+          if (succesfulRes.length) {
+            // if there are cached city, update them with new city info from api
+            if (myCities && newState.length > 0) {
+              const updatedState = [];
+              for (let i = 0; i < newState.length; i += 1) {
+                const currentCity = newState[i];
+                let data;
+                if (currentCity.location.name === succesfulRes[i].value.data.location.name) {
+                  data = succesfulRes[i].value.data;
                 } else {
-                  data = currentCity;
-                }
-              }
+                  const found = succesfulRes
+                    .find(({ value }) => value.data.location.name === currentCity.location.name);
 
-              updatedState.push({
+                  if (found) {
+                    data = found.value.data;
+                  } else {
+                    data = currentCity;
+                  }
+                }
+
+                updatedState.push({
+                  location: {
+                    name: data.location?.name,
+                    country: data.location?.country,
+                    region: data.location?.region,
+                  },
+                  current: {
+                    temperature: data.current?.temperature,
+                    // @ts-ignore
+                    weather_icon: data.current?.weather_icon
+                    // @ts-ignore
+                       || data.current?.weather_icons[0].toString(),
+                    // @ts-ignore
+                    weather_description: data.current?.weather_description
+                    // @ts-ignore
+                       || data.current?.weather_descriptions[0].toString(),
+                    wind_speed: data.current?.wind_speed,
+                    wind_degree: data.current?.wind_degree,
+                    wind_dir: data.current?.wind_dir,
+                    pressure: data.current?.pressure,
+                    humidity: data.current?.humidity,
+                    visibility: data.current?.visibility,
+                  },
+                  favorite: currentCity.favorite,
+                  notes: currentCity.notes,
+                });
+              }
+              newState = updatedState;
+            } else {
+              newState = succesfulRes.map(({ value: { data } }) => ({
                 location: {
                   name: data.location?.name,
                   country: data.location?.country,
@@ -81,14 +110,8 @@ const Provider = ({ children }: any) => {
                 },
                 current: {
                   temperature: data.current?.temperature,
-                  // @ts-ignore
-                  weather_icon: data.current?.weather_icon
-                  // @ts-ignore
-                     || data.current?.weather_icons[0].toString(),
-                  // @ts-ignore
-                  weather_description: data.current?.weather_description
-                  // @ts-ignore
-                     || data.current?.weather_descriptions[0].toString(),
+                  weather_icon: data.current?.weather_icons[0].toString(),
+                  weather_description: data.current?.weather_descriptions[0].toString(),
                   wind_speed: data.current?.wind_speed,
                   wind_degree: data.current?.wind_degree,
                   wind_dir: data.current?.wind_dir,
@@ -96,33 +119,11 @@ const Provider = ({ children }: any) => {
                   humidity: data.current?.humidity,
                   visibility: data.current?.visibility,
                 },
-                favorite: currentCity.favorite,
-                notes: currentCity.notes,
-              });
+                favorite: false,
+                notes: [],
+              }));
             }
-            newState = updatedState;
-          } else {
-            newState = succesfulRes.map(({ value: { data } }) => ({
-              location: {
-                name: data.location?.name,
-                country: data.location?.country,
-                region: data.location?.region,
-              },
-              current: {
-                temperature: data.current?.temperature,
-                weather_icon: data.current?.weather_icons[0].toString(),
-                weather_description: data.current?.weather_descriptions[0].toString(),
-                wind_speed: data.current?.wind_speed,
-                wind_degree: data.current?.wind_degree,
-                wind_dir: data.current?.wind_dir,
-                pressure: data.current?.pressure,
-                humidity: data.current?.humidity,
-                visibility: data.current?.visibility,
-              },
-              favorite: false,
-              notes: [],
-            }));
-          }
+          } else { return; }
         }
 
         update(newState);
