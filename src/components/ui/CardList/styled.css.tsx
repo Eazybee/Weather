@@ -17,6 +17,7 @@ const styles = css`
     > .cardBtn {
       margin: 0 0.5rem;
       width: 10rem;
+      min-width: 10rem;
     }
   }
 `;
