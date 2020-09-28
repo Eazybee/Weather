@@ -3,8 +3,9 @@ import React, { createContext, useReducer, useEffect } from 'react';
 import { requestApi as request } from '<helpers>/request';
 import DebounceError from '<helpers>/DebounceError';
 import { City, ApiResponse } from '<helpers>/typings';
-import { Cities, LocalStoragePointer, isOnline } from '<configs>/constants';
+import { Cities, LocalStoragePointer } from '<configs>/constants';
 import reducer, { ActionType } from './CitiesReducer';
+import useNetwork from '<hooks>/useNetwork';
 
 
 // @ts-ignore
@@ -19,7 +20,7 @@ export const CitiesContext: React.Context<{
 
 const Provider = ({ children }: any) => {
   const [state, dispatch] = useReducer(reducer, []);
-
+  const isOnline = useNetwork();
   const update = (newState: City[]) => {
     newState.sort((
       a, b,
@@ -133,7 +134,7 @@ const Provider = ({ children }: any) => {
         }
       }
     })();
-  }, []);
+  }, [isOnline]);
 
   return <CitiesContext.Provider value={{ state, dispatch }}>{children}</CitiesContext.Provider>;
 };

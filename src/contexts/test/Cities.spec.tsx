@@ -50,7 +50,7 @@ describe('Cities Provider', () => {
       </CitiesProvider>,
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     Cities.forEach((city) => {
@@ -61,13 +61,14 @@ describe('Cities Provider', () => {
   });
 
   it('should load cities from browser and update', async () => {
+    jest.runOnlyPendingTimers();
     const { getByText } = render(
       <CitiesProvider>
         <MockComponent />
       </CitiesProvider>,
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     props.forEach((city) => {

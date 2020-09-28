@@ -1,6 +1,11 @@
 import { css } from 'styled-components';
 
 const styles = css`
+  border: 1px solid #e8eaea;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;
+
   button {
     background: linear-gradient(to right, #00d2ff 0%, #3a7bd5 51%);
     color: white;
@@ -23,8 +28,7 @@ const styles = css`
 
     .main div.add {
       margin-bottom: 2rem;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      padding: 1rem;
+      padding: 1rem 0;
       border-radius: 5px;
 
       form {
@@ -54,7 +58,6 @@ const styles = css`
       display: flex;
       flex-flow: column;
       padding: 1rem;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
       border-radius: 5px;
     }
 

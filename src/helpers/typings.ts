@@ -22,6 +22,8 @@ export type HeadCity = Location & {
     humidity: number;
     weather_description: string;
   };
+  favorite: boolean;
+  index?: number;
 };
 export type City = HeadCity & {
   current: {
