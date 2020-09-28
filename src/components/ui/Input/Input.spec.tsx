@@ -40,7 +40,7 @@ describe('Input', () => {
       </CitiesProvider>,
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByPlaceholderText('Tokyo')).toBeTruthy();
@@ -53,7 +53,7 @@ describe('Input', () => {
       </CitiesProvider>,
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     fireEvent.change(
@@ -61,7 +61,7 @@ describe('Input', () => {
       { target: { value: props[0].location.name } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText(props[0].location.name)).toBeTruthy();
@@ -79,7 +79,7 @@ describe('Input', () => {
       { target: { value: props[0].location.name } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText(props[0].location.name)).toBeTruthy();
@@ -99,7 +99,7 @@ describe('Input', () => {
       { target: { value: props[0].location.name } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     fireEvent.change(
@@ -107,7 +107,7 @@ describe('Input', () => {
       { target: { value: ' ' } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(queryByText(props[0].location.name)).toBeFalsy();
@@ -129,7 +129,7 @@ describe('Input', () => {
       { target: { value: 'random text' } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(queryByText('random text')).toBeFalsy();
@@ -152,7 +152,7 @@ describe('Input', () => {
       { target: { value: 'Japan' } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(queryByText('Japan')).toBeTruthy();
@@ -177,7 +177,7 @@ describe('Input', () => {
       { target: { value: 'Japan' } },
     );
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     fireEvent.click(getByText('Japan'));

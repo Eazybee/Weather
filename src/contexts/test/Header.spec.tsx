@@ -64,6 +64,22 @@ describe('HeaderContext Provider', () => {
     };
   });
 
+  it.skip('should show first city on homepage if navigation is not supported', async () => {
+    jest.runOnlyPendingTimers();
+    // @ts-ignore
+    navigator.geolocation = null;
+    const firstCity = props[0];
+
+    const { getByText } = render(<Provider><MockComponent /></Provider>);
+    await act(() => promise);
+    jest.runOnlyPendingTimers();
+    await act(() => promise);
+
+    expect(getByText(firstCity.location.name)).toBeTruthy();
+    expect(getByText(firstCity.location.country)).toBeTruthy();
+    expect(getByText(firstCity.current.temperature.toString())).toBeTruthy();
+  });
+
   it('should show user location on homepage if navigation is supported and redirect to /info page', async () => {
     const user = {
       cityName: 'Lagos',
@@ -83,7 +99,7 @@ describe('HeaderContext Provider', () => {
 
     const { getByText } = render(<Provider><MockComponent /></Provider>);
     await act(() => promise);
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText(user.cityName)).toBeTruthy();
@@ -91,21 +107,5 @@ describe('HeaderContext Provider', () => {
     expect(getByText(user.temperature.toString())).toBeTruthy();
 
     requestMock.mockRestore();
-  });
-
-
-  it('should show first city on homepage if navigation is not supported', async () => {
-    // @ts-ignore
-    navigator.geolocation = null;
-    const firstCity = props[0];
-
-    const { getByText } = render(<Provider><MockComponent /></Provider>);
-    await act(() => promise);
-    jest.runAllTimers();
-    await act(() => promise);
-
-    expect(getByText(firstCity.location.name)).toBeTruthy();
-    expect(getByText(firstCity.location.country)).toBeTruthy();
-    expect(getByText(firstCity.current.temperature.toString())).toBeTruthy();
   });
 });

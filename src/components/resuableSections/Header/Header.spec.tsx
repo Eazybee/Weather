@@ -35,7 +35,7 @@ describe('Header', () => {
       .mockImplementation(() => Promise.reject());
     const { getByText, queryByText } = render(<HeaderWrapper />, {});
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText('Weather')).toBeTruthy();
@@ -52,7 +52,7 @@ describe('Header', () => {
     localStorage.setItem(LocalStoragePointer, JSON.stringify(props));
 
     const { getByText, queryByText } = render(<HeaderWrapper />, {});
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText('Weather')).toBeTruthy();

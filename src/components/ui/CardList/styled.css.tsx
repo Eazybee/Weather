@@ -8,17 +8,7 @@ const styles = css`
   overflow: scroll;
 
   @media screen and (max-width: 880px), screen and (max-height: 630px)   {
-    width: 100%;
-    flex-flow: row nowrap;
-    height: fit-content;
-    position: static;
-    margin: 0;
-
-    > .cardBtn {
-      margin: 0 0.5rem;
-      width: 10rem;
-      min-width: 10rem;
-    }
+   
   }
 `;
 

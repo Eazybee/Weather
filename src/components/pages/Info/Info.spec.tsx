@@ -42,7 +42,7 @@ describe('Header', () => {
       .mockImplementation(() => Promise.reject());
     const { getByText } = render(<InfoWrapper />, {});
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText('Loading...')).toBeTruthy();
@@ -55,7 +55,7 @@ describe('Header', () => {
 
     const { getByText } = render(<InfoWrapper />, {});
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByText(props[0].current.pressure.toString())).toBeTruthy();

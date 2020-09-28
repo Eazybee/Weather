@@ -26,4 +26,3 @@ export const LocalStoragePointer = 'my_cities';
 export const LocalStorageHeaderBGPointer = 'my_cities_bg_header';
 export const LocalStorageHeaderPointer = 'my_cities_header';
 export const LocalStorageShowGeoCityPointer = 'show_geo_city';
-export const isOnline = navigator.onLine;

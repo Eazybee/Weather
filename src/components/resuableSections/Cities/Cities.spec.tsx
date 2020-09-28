@@ -36,7 +36,7 @@ describe('Cities', () => {
       .mockImplementation(() => Promise.reject());
     const { getByPlaceholderText, queryByText, container } = render(<CitiesWrapper />, {});
 
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByPlaceholderText('Tokyo')).toBeTruthy();
@@ -51,7 +51,7 @@ describe('Cities', () => {
     const { getByPlaceholderText, queryByText } = render(<CitiesWrapper />, {});
 
     const firstCity = cities[0];
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByPlaceholderText('Tokyo')).toBeTruthy();
@@ -67,7 +67,7 @@ describe('Cities', () => {
     const { getByPlaceholderText, queryByText } = render(<CitiesWrapper />, {});
 
     const firstCity = cities[0];
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     expect(getByPlaceholderText('Tokyo')).toBeTruthy();
@@ -83,7 +83,7 @@ describe('Cities', () => {
     const { getByText } = render(<CitiesWrapper />, {});
 
     const firstCity = cities[0] as City;
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     const likebtn = getByText(firstCity.location.name).previousSibling?.previousSibling?.firstChild;
@@ -93,7 +93,7 @@ describe('Cities', () => {
     }
 
     await act(() => promise);
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
 
     const myCities = localStorage.getItem(LocalStoragePointer);
     let newState: City[] = [];
@@ -113,7 +113,7 @@ describe('Cities', () => {
     const { getByText } = render(<CitiesWrapper />, {});
 
     const firstCity = cities[0];
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
     await act(() => promise);
 
     const delButton = getByText(firstCity.location.name)
@@ -124,7 +124,7 @@ describe('Cities', () => {
     }
 
     await act(() => promise);
-    jest.runAllTimers();
+    jest.runOnlyPendingTimers();
 
     const myCities = localStorage.getItem(LocalStoragePointer);
     let newState: City[] = [];

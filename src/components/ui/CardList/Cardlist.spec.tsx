@@ -21,8 +21,6 @@ describe('CardList', () => {
         handleDelete: () => {},
         delay: 0,
       }],
-      direction: 'row',
-      width: 'full',
     };
   });
 
@@ -32,18 +30,6 @@ describe('CardList', () => {
     expect(getByText(props.cards[0].name)).toBeTruthy();
     expect(container.firstChild).toHaveStyle(`
       height: fit-content;
-    `);
-  });
-
-  it('should render with columns styles', () => {
-    props.direction = 'column';
-    const { getByText, container } = render(<CardList {...props} />);
-
-    expect(getByText(props.cards[0].name)).toBeTruthy();
-    expect(container.firstChild).toHaveStyle(`
-        height: 100%;
-        background: white;
-        margin-left: 1rem;
     `);
   });
 });

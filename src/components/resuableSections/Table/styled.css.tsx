@@ -1,6 +1,9 @@
 import { css } from 'styled-components';
 
 const styles = css`
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px;
+  border-radius: 1rem;
+
   &,
   thead,
   tbody {
@@ -16,6 +19,13 @@ const styles = css`
       border-bottom: 3px solid #e7eaf3;
       padding: 0.625rem;
       text-align: left;
+
+      &:first-child {
+        border-top-left-radius: 1rem;
+      }
+      &:last-child {
+        border-top-right-radius: 1rem;
+      }
     }
   }
   tbody {
@@ -32,6 +42,7 @@ const styles = css`
         padding: 0.625rem;
         vertical-align: top;
         max-width: 5em;
+        overflow: scroll;
       }
     }
   }

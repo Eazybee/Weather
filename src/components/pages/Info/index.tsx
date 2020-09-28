@@ -33,22 +33,17 @@ const InfoPage = () => {
         if (index !== null && !Number.isNaN(Number(index))) {
           myIndex = index;
         } else if (current && location) {
-          await new Promise((res) => {
-            setTimeout(() => {
-              for (let i = 0; i < citiesState.length; i += 1) {
-                const { location: tempLocation } = citiesState[i];
-                if (
-                  tempLocation.name === location.name
+          for (let i = 0; i < citiesState.length; i += 1) {
+            const { location: tempLocation } = citiesState[i];
+            if (
+              tempLocation.name === location.name
                 && tempLocation.region === location.region
                 && tempLocation.country === location.country
-                ) {
-                  myIndex = i;
-                  break;
-                }
-              }
-              res();
-            }, 3000);
-          });
+            ) {
+              myIndex = i;
+              break;
+            }
+          }
         }
       }
 
@@ -71,6 +66,8 @@ const InfoPage = () => {
             homeCity: {
               current: info.current,
               location: info.location,
+              favorite: info.favorite,
+              index: myIndex,
             },
           }));
         }

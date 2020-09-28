@@ -88,6 +88,7 @@ const Provider = ({ children }: any) => {
                   humidity: newState.current.humidity,
                   weather_description: newState.current.weather_descriptions[0],
                 },
+                favorite: false,
               },
             }));
             localStorage.setItem(
@@ -117,17 +118,20 @@ const Provider = ({ children }: any) => {
 
   useEffect(() => {
     (async () => {
+      let shouldLoadFirstCity = true;
       if (showHome && !loadFirstCity) {
         const storageState = localStorage.getItem(LocalStorageHeaderPointer);
         if (storageState) {
           setState(JSON.parse(storageState));
+          shouldLoadFirstCity = false;
         } else if (navigator.geolocation) {
           const position: Position | undefined = await new Promise((res) => {
             navigator.geolocation.getCurrentPosition(
               (pos) => res(pos),
-              () => res(),
+              () => { res(); },
             );
           });
+
           if (position) {
             const query = `${position.coords.latitude},${position.coords.longitude}`;
             const newState = await updateHeader(query);
@@ -147,6 +151,7 @@ const Provider = ({ children }: any) => {
                   },
                 },
                 loadFirstCity: false,
+                favorite: false,
               }));
 
               setState((stat) => ({
@@ -163,6 +168,7 @@ const Provider = ({ children }: any) => {
                     humidity: newState.current.humidity,
                     weather_description: newState.current.weather_descriptions[0],
                   },
+                  favorite: false,
                 },
               }));
 
@@ -186,13 +192,14 @@ const Provider = ({ children }: any) => {
                   notes: [],
                 });
               }
+              shouldLoadFirstCity = false;
               return true;
             }
           }
         }
       }
       if (showHome) {
-        return setState((stat) => ({ ...stat, loadFirstCity: true }));
+        return setState((stat) => ({ ...stat, loadFirstCity: shouldLoadFirstCity }));
       }
     })();
   }, [loadFirstCity, ref, showHome, updateHeader]);

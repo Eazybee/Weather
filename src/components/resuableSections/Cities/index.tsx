@@ -44,13 +44,13 @@ const Cities = () => {
         {favCitiesProp?.length ? (
           <div>
             <h1>Favorites</h1>
-            <CardList cards={favCitiesProp} direction="row" width="fraction" />
+            <CardList cards={favCitiesProp} />
           </div>
         ) : null}
         {citiesProp.length ? (
-          <div className={`${favCitiesProp?.length ? 'col' : ''}`}>
+          <div>
             <h1>Other Cities</h1>
-            <CardList cards={citiesProp} direction={favCitiesProp?.length ? 'column' : 'row'} />
+            <CardList cards={citiesProp} />
           </div>
         ) : null}
       </div>
