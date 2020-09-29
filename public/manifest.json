@@ -1,6 +1,6 @@
 {
   "short_name": "Weather",
-  "name": "A simple weather aapp",
+  "name": "A simple weather app",
   "icons": [
     {
       "src": "./statics/favicon.ico",

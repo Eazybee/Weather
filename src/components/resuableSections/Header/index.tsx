@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useLocation, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ import { CitiesContext, ActionType } from '<contexts>/Cities';
 import { HeadCity } from '<helpers>/typings';
 import styles from './styled.css';
 import useNetwork from '<hooks>/useNetwork';
+import useDeepEffect from '<hooks>/useDeepEffect';
 
 
 const Header = () => {
@@ -27,8 +28,7 @@ const Header = () => {
   const isOnline = useNetwork();
   const isHomePage = browserLocation.pathname === '/';
 
-
-  useEffect(() => {
+  useDeepEffect(() => {
     let imgSrc;
 
     if (headerState.homeCity) {
@@ -58,7 +58,6 @@ const Header = () => {
 
   const like = () => {
     const index = state?.index;
-    console.log(index);
     dispatch({ type: ActionType.TOOGLE_FAVORITE, payload: { index } });
   };
 
