@@ -1,5 +1,5 @@
 import React, {
-  createContext, useState, useEffect, useContext, useCallback,
+  createContext, useState, useContext, useCallback,
 } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { requestApi as request } from '<helpers>/request';
@@ -7,6 +7,7 @@ import DebounceError from '<helpers>/DebounceError';
 import { CitiesContext, ActionType } from './Cities';
 import { HeadCity, ApiResponse, City } from '<helpers>/typings';
 import { Cities, LocalStorageHeaderPointer, LocalStorageShowGeoCityPointer } from '<configs>/constants';
+import useDeepEffect from '<hooks>/useDeepEffect';
 
 type State = {
   homeCity?: HeadCity;
@@ -29,7 +30,7 @@ const Provider = ({ children }: any) => {
   const ref = localStorage.getItem(LocalStorageShowGeoCityPointer);
 
   const { state: citiesState, dispatch } = useContext(CitiesContext);
-  useEffect(() => {
+  useDeepEffect(() => {
     if (!ref && navigator.geolocation && showHome && !loadFirstCity && geoCity) {
       localStorage.setItem(LocalStorageShowGeoCityPointer, '1');
       dispatch({ type: ActionType.ADD, payload: geoCity });
@@ -57,7 +58,7 @@ const Provider = ({ children }: any) => {
   }, []);
 
   const homeCity = citiesState.find((city) => city.favorite) || citiesState[0];
-  useEffect(() => {
+  useDeepEffect(() => {
     (async () => {
       const storageState = localStorage.getItem(LocalStorageHeaderPointer);
       if (loadFirstCity && showHome) {
@@ -116,7 +117,7 @@ const Provider = ({ children }: any) => {
     })();
   }, [citiesState.length, homeCity, loadFirstCity, showHome, updateHeader]);
 
-  useEffect(() => {
+  useDeepEffect(() => {
     (async () => {
       let shouldLoadFirstCity = true;
       if (showHome && !loadFirstCity) {
