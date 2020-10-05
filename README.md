@@ -26,9 +26,9 @@ A progressive web application that allows users to look up current weather infor
 
 ## Technologies
 * React JS
-* Typscript
+* Typescript
 * Webpack
-* Styled Compoenent
+* Styled Component
 * React Font Awesome
 * Service worker
 * Jest / @testing-library
